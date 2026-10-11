@@ -24,23 +24,15 @@ jobs:
         run: |
           $workspace = (Get-Location).ProviderPath
           $workflowPath = Join-Path $workspace ".github/workflows/init.yml"
-          $files = @(Join-Path $workspace "README.md")
-          foreach ($directory in @(
-              ".github/ISSUE_TEMPLATE",
-              ".github/workflows",
-              ".github/bootstrap-issues",
-              "docs",
-              "scripts"
-          )) {
-            $files += @(Get-ChildItem -LiteralPath $directory -File -Recurse |
-              ForEach-Object { $_.FullName })
-          }
+          $readmePath = Join-Path $workspace "README.md"
 
-          foreach ($file in $files) {
-            $fullPath = [IO.Path]::GetFullPath($file)
+          function Update-RepositoryPlaceholders {
+            param([Parameter(Mandatory)][string] $Path)
+
+            $fullPath = [IO.Path]::GetFullPath($Path)
             # Keep the initializer's own replacement tokens intact until it removes itself.
             if ($fullPath -eq $workflowPath) {
-              continue
+              return
             }
 
             $content = [IO.File]::ReadAllText($fullPath)
@@ -55,6 +47,25 @@ jobs:
                 [Text.UTF8Encoding]::new($false)
               )
             }
+          }
+
+          Update-RepositoryPlaceholders -Path $readmePath
+
+          foreach ($directory in @(
+              ".github/ISSUE_TEMPLATE",
+              ".github/workflows",
+              ".github/bootstrap-issues",
+              "docs",
+              "scripts"
+          )) {
+            Get-ChildItem -LiteralPath $directory -File -Recurse |
+              ForEach-Object {
+                Update-RepositoryPlaceholders -Path $_.FullName
+              }
+          }
+
+          if ([IO.File]::ReadAllText($readmePath).Contains("{{ORG_NAME}}")) {
+            throw "README.md still contains the {{ORG_NAME}} placeholder."
           }
 
       - name: Create labels used by onboarding
