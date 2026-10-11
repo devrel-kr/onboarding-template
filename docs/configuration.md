@@ -119,7 +119,7 @@ dotnet run --file ./scripts/Setup-GitHubApp.cs -- `
 
 The script listens on `http://127.0.0.1:53682/` for up to 10 minutes. On a local machine, it registers a loopback callback URL with GitHub, so run the script on the same machine as the browser.
 
-In GitHub Codespaces, the script detects `CODESPACES=true` and registers `https://<codespace-name>-<port>.<forwarding-domain>/callback/` as the callback while continuing to listen on loopback. The default dev container forwards port `53682`. Run the setup command with `--no-open`, then open the forwarded registration URL printed by the script in a browser signed in to GitHub. Keep the port private so only your Codespaces user can access it. Use `--callback-port` to select another port; Codespaces will forward that port when the script prints its local listener URL.
+In GitHub Codespaces, the script detects `CODESPACES=true` and registers `https://<codespace-name>-<port>.<forwarding-domain>/callback/` as the callback. It uses a wildcard listener prefix so the Codespaces forwarding hostname is accepted; outside Codespaces, it listens only on loopback. The default dev container forwards port `53682`. Run the setup command with `--no-open`, then open the forwarded registration URL printed by the script in a browser signed in to GitHub. Keep the port private so only your Codespaces user can access it. Use `--callback-port` to select another port; Codespaces will forward that port when the script prints its local listener URL.
 
 `--no-open` prevents the script from launching a browser. In Codespaces, the script always prints the forwarded URL for you to open manually.
 
@@ -131,7 +131,7 @@ The manifest requests these permissions:
 | Repository permissions → Issues    | Read and write | Allows comments, labels, issue lookup, and issue closure           |
 | Organization permissions → Members | Read and write | Allows `Onboard-ToGitHub.cs` to add members to the configured team |
 
-After registration, the script opens the app installation page. Install the app on the target organization and grant it access to the repository created from this template. App installation still requires organization-owner approval and cannot be completed by the manifest exchange alone.
+After registration, the script opens the app installation page. If you need to open it again, use `https://github.com/apps/onboarding-automation/installations/new`, replacing the example `onboarding-automation` slug with your app's slug. Install the app on the target organization and grant it access to the repository created from this template. App installation still requires organization-owner approval and cannot be completed by the manifest exchange alone.
 
 The organization must own or install the app for the organization-level `Members: write` permission to be available. A missing permission or installation causes GitHub onboarding to fail with HTTP 403. The private key is sent directly to `gh secret set` through standard input and is not written to disk by the script.
 
