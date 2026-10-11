@@ -25,6 +25,6 @@ Configure the GitHub App used by the onboarding workflows. Complete [Bootstrap 1
     --github-repo "{{ORG_NAME}}/{{REPOSITORY_NAME}}"
   ```
 
-- [ ] Install the created app on the organization and grant it access to this repository.
+- [ ] Open the [GitHub App installation page](https://github.com/apps/onboarding-automation/installations/new), replacing the example `onboarding-automation` slug with your app's slug, then install the app on the organization and grant it access to this repository.
 - [ ] Confirm that `APP_CLIENT_ID` is a repository variable and `APP_PRIVATE_KEY` is a repository secret.
 - [ ] Confirm the app has repository `Contents: read` and `Issues: write`, and organization `Members: write` permissions.
