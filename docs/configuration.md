@@ -14,7 +14,7 @@ Configure the values in **Repository settings → Secrets and variables → Acti
 | `AZURE_TENANT_ID`         | Repository variable          | Written by `Setup-ServicePrincipal.cs`                                              |
 | `AZURE_SUBSCRIPTION_ID`   | Repository variable          | Written by `Setup-ServicePrincipal.cs`                                              |
 | `AZURE_SECURITY_GROUP_ID` | Repository variable          | Written by `Setup-EntraSecurityGroup.cs`                                            |
-| `GITHUB_TEAM_ID`          | Repository variable          | Written by `Setup-GitHubTeam.cs`                                                    |
+| `ONBOARDING_GITHUB_TEAM_ID` | Repository variable          | Written by `Setup-GitHubTeam.cs`                                                    |
 | `ONBOARDING_DUE_DATE`     | Optional repository variable | ISO 8601 deadline; leave unset for ongoing onboarding                             |
 
 ## Initialize a repository from this template
@@ -139,7 +139,7 @@ The organization must own or install the app for the organization-level `Members
 
 **Bootstrap issue 3/5**
 
-GitHub organization onboarding assigns each new member to a team. `Setup-GitHubTeam.cs` searches all visible organization teams for an exact name match, reuses the existing team when found, or creates a new team when absent. It then writes the numeric team ID to `GITHUB_TEAM_ID`.
+GitHub organization onboarding assigns each new member to a team. `Setup-GitHubTeam.cs` searches all visible organization teams for an exact name match, reuses the existing team when found, or creates a new team when absent. It then writes the numeric team ID to `ONBOARDING_GITHUB_TEAM_ID`. If saving the variable fails after team creation, rerun the script with the same team name; it will find the existing team and retry saving the variable.
 
 The authenticated GitHub user must be an organization member allowed to create teams and must be able to write Actions variables in the repository. Organization owners can restrict team creation to owners.
 
@@ -312,7 +312,7 @@ Before accepting real requests:
 
 1. Verify that the GitHub App is installed on the repository and organization.
 2. Verify that the app has `Issues: write` and organization `Members: write`.
-3. Confirm that `GITHUB_TEAM_ID` identifies the intended organization team.
+3. Confirm that `ONBOARDING_GITHUB_TEAM_ID` identifies the intended organization team.
 4. Open the Azure app registration and verify its federated credential and Microsoft Graph permissions.
 5. Confirm that `AZURE_SECURITY_GROUP_ID` identifies the intended security group and that the automation identity can update it.
 6. Run each workflow manually with a controlled test issue.

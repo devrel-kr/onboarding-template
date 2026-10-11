@@ -156,7 +156,7 @@ jobs:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
           ORGANIZATION: ${{ steps.issue.outputs.org }}
           GITHUB_HANDLE: ${{ steps.issue.outputs.githubHandle }}
-          TEAM_ID: ${{ vars.GITHUB_TEAM_ID }}
+          TEAM_ID: ${{ vars.ONBOARDING_GITHUB_TEAM_ID }}
         run: |
           dotnet run --file ./scripts/Onboard-ToGitHub.cs -- \
             --organization "$ORGANIZATION" \

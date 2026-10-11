@@ -45,15 +45,15 @@ else
     Console.WriteLine($"Using existing GitHub team '{team.Name}' ({team.Id}).");
 }
 
-Console.WriteLine($"Saving GITHUB_TEAM_ID to repository '{options.GitHubRepo}'...");
+Console.WriteLine($"Saving ONBOARDING_GITHUB_TEAM_ID to repository '{options.GitHubRepo}'...");
 await RunAsync(
     "gh",
-    "variable", "set", "GITHUB_TEAM_ID",
+    "variable", "set", "ONBOARDING_GITHUB_TEAM_ID",
     "--body", team.Id.ToString(),
     "--repo", options.GitHubRepo);
 
 Console.WriteLine();
-Console.WriteLine($"GITHUB_TEAM_ID: {team.Id}");
+Console.WriteLine($"ONBOARDING_GITHUB_TEAM_ID: {team.Id}");
 Console.WriteLine($"Team URL: {team.HtmlUrl}");
 
 static async Task<Team?> FindTeamAsync(
