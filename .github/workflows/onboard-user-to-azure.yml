@@ -164,7 +164,7 @@ jobs:
         env:
           USER_EMAIL: ${{ steps.issue.outputs.email }}
           USER_NAME: ${{ steps.issue.outputs.name }}
-          SECURITY_GROUP: ${{ vars.AZURE_SECURITY_GROUP_ID }}
+          SECURITY_GROUP: ${{ vars.ONBOARDING_ENTRA_SECURITY_GROUP_ID }}
         run: |
           dotnet run --file ./scripts/Onboard-ToAzure.cs -- \
             --email "$USER_EMAIL" \

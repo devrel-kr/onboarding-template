@@ -25,6 +25,6 @@ Create or reuse the Microsoft Entra security group that receives Azure-onboarded
     --github-repo "{{ORG_NAME}}/{{REPOSITORY_NAME}}"
   ```
 
-- [ ] Confirm `AZURE_SECURITY_GROUP_ID` is set as a repository variable and identifies the intended security-enabled group.
+- [ ] Confirm `ONBOARDING_ENTRA_SECURITY_GROUP_ID` is set as a repository variable and identifies the intended security-enabled group.
 - [ ] If onboarding should end on a deadline, set `ONBOARDING_DUE_DATE` as a repository variable using an ISO 8601 timestamp with an explicit UTC offset; leave it unset for ongoing onboarding.
 - [ ] Review the repository variables and secret listed in the [configuration overview](https://github.com/{{ORG_NAME}}/{{REPOSITORY_NAME}}/blob/main/docs/configuration.md#configuration-overview), then validate the issue forms and workflows before accepting requests.

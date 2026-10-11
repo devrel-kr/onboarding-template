@@ -29,5 +29,5 @@ Create or reuse the team that receives users after GitHub organization onboardin
     --github-repo "{{ORG_NAME}}/{{REPOSITORY_NAME}}"
   ```
 
-- [ ] Confirm `GITHUB_TEAM_ID` is set as a repository variable and identifies the intended team.
+- [ ] Confirm `ONBOARDING_GITHUB_TEAM_ID` is set as a repository variable and identifies the intended team.
 - [ ] Confirm the GitHub App from Bootstrap 2/5 is installed on the organization.
